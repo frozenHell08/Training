@@ -44,3 +44,5 @@ Route::group([
     Route::post('refresh', 'App\Http\Controllers\Api\Auth\AuthController@refresh');
     Route::post('refresh', 'App\Http\Controllers\Api\Auth\AuthController@logout');
 });
+
+// Route::post('/')

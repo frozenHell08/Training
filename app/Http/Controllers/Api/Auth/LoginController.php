@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\TestMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
@@ -28,6 +30,8 @@ class LoginController extends Controller
                 'error' => 'Login failed.'
             ], 401);
         }
+
+        Mail::to($request->email)->send(new TestMail($request->email));
 
         return $this->respondWithtoken($token);
     }
