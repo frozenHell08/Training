@@ -185,7 +185,8 @@ return [
         /*
          * Package Service Providers...
          */
-
+        
+        PHPOpenSourceSaver\JWTAuth\Providers\LaravelServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -208,8 +209,16 @@ return [
     |
     */
 
-    'aliases' => Facade::defaultAliases()->merge([
-        // 'ExampleClass' => App\Example\ExampleClass::class,
-    ])->toArray(),
+    // 'aliases' => Facade::defaultAliases()->merge([
+    //     // 'ExampleClass' => App\Example\ExampleClass::class,
+    //     'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+    //     'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+    // ])->toArray(),
+
+    'aliases' => [
+        'JWTAuthh' => PHPOpenSourceSaver\JWTAuth\JWTAuth::class,
+        'JWTFactory' => PHPOpenSourceSaver\JWTAuth\Facades\JWTFactory::class
+        // ymon\JWTAuth\Facades\JWTFactory::class,
+    ],
 
 ];
