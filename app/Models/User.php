@@ -25,6 +25,10 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         'password',
     ];
 
+    protected $guarded = [
+        'user_type'
+    ];
+
     /**
      * The attributes that should be hidden for serialization.
      *

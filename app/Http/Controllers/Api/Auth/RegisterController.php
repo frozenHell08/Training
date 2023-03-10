@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Mail\TestMail;
+use App\Mail\VerifyRegister;
 use App\Models\User;
+use Hamcrest\Core\IsEqual;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,11 +34,16 @@ class RegisterController extends Controller
             'name' => $request->name,
             'username' => $request->username,
             'email' => $request->email,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
         ]);
 
+        if ($user->id == 1) {
+            $user->user_type = 'Super Admin';
+        }
+
         // event (new Registered($user));
-        // Mail::to($request->user())->send(new TestMail());
+
+        Mail::to($user->email)->send(new VerifyRegister($user));
 
         $token = Auth::login($user);
 

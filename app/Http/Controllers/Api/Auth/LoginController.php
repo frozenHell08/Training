@@ -31,7 +31,7 @@ class LoginController extends Controller
             ], 401);
         }
 
-        Mail::to($request->email)->send(new TestMail($request->email));
+        // Mail::to($request->email)->send(new TestMail($request->email));
 
         return $this->respondWithtoken($token);
     }
