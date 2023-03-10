@@ -26,7 +26,8 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     ];
 
     protected $guarded = [
-        'user_type'
+        'user_type',
+        'isVerified'
     ];
 
     /**
