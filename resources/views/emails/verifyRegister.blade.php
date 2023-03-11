@@ -8,7 +8,7 @@ Username : {{ $username }} <br>
 <br>
 Please click the button below to verify your email.
 
-<x-mail::button :url="''">
+<x-mail::button :url="'http://localhost:8000/dashboard'">
 Verify Email
 </x-mail::button>
 

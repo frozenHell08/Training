@@ -7,6 +7,7 @@ use App\Mail\VerifyRegister;
 use App\Models\User;
 use Hamcrest\Core\IsEqual;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -39,14 +40,16 @@ class RegisterController extends Controller
 
         if ($user->id == 1) {
             $user->user_type = 'Super Admin';
+            $user->save();
         }
 
-        // event (new Registered($user));
+        event(new Registered($user));
 
-        Mail::to($user->email)->send(new VerifyRegister($user));
+        // Mail::to($user->email)->send(new VerifyRegister($user));
 
         $token = Auth::login($user);
-
+        // event(new Verified($this->user()));
+        
         return response()->json([
             'message' => "Account has been registered.",
             'account' => $user,

@@ -31,8 +31,6 @@ class LoginController extends Controller
             ], 401);
         }
 
-        // Mail::to($request->email)->send(new TestMail($request->email));
-
         return $this->respondWithtoken($token);
     }
 
@@ -42,8 +40,9 @@ class LoginController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => Auth::factory()->getTTL() * 60,
-            'user' => auth()->user(),
-            'payload' => Auth::payload()
+            // 'user' => auth()->user(),
+            'payload' => Auth::payload(),
+            'user' => Auth::user(),
         ]);
     }
 }

@@ -3,22 +3,13 @@
 use App\Http\Controllers\Api\Auth\{
     LoginController,
     RegisterController,
-    AuthController
+    AuthController,
+    VerifyController
 } ;
-
+use App\Http\Requests\VerificationRequest;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
 
 /**
  * 
@@ -40,7 +31,14 @@ Route::group([
     'middleware' => 'jwtm',
     'prefix' => 'auth',
 ], function () {
-    Route::get('user-profile', 'App\Http\Controllers\Api\Auth\AuthController@userProfile');
+    Route::get('user-profile', 'App\Http\Controllers\Api\Auth\AuthController@userProfile')->name('profile');
     Route::post('refresh', 'App\Http\Controllers\Api\Auth\AuthController@refresh');
     Route::post('logout', 'App\Http\Controllers\Api\Auth\AuthController@logout');
 });
+
+Route::get('/verify/{id}/{hash}', function(VerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect('profile');
+})  ->middleware(['auth', 'signed'])
+    ->name('verification.verify');
