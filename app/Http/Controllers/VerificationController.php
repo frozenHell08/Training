@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
 class VerificationController extends Controller
 {
@@ -27,8 +28,22 @@ class VerificationController extends Controller
             ]);
 
             event(new Verified($user));
-        
-            return redirect('/');
         }
+
+        return redirect('/');
+    }
+
+    public function resendEmail() {
+        if (JWTAuth::user()->hasVerifiedEmail()) {
+            return response()->json([
+                'message' => 'Email already verified.'
+            ], 400);
+        }
+
+        JWTAuth::user()->sendEmailVerificationNotifaction();
+
+        return response()->json([
+            'message' => 'Email verification sent.'
+        ]);
     }
 }

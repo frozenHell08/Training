@@ -36,7 +36,7 @@ Route::get('/dash', function () {
     return view('/pages/home');
 })
 // ->middleware(['verified'])
-->middleware('verified.email')
+->middleware('verified')
 ->name('board');
  
 Route::get('/verf', function () {

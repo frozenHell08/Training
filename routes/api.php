@@ -39,3 +39,7 @@ Route::group([
 
 Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
     ->name('verification.verify');
+
+Route::get('email/resend', [VerificationController::class, 'resendEmail'])->name('verification.resend');
+
+//Route::get("/posts/:id");
