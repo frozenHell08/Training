@@ -13,13 +13,13 @@ class VerificationRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        // $user = User::find($this->route('id'));
+        $user = User::find($this->route('id'));
 
-        if (! hash_equals((string) $this->user()->getJWTIdentifier(), (string) $this->route('id'))) {
+        if (! hash_equals((string) $user->getJWTIdentifier(), (string) $this->route('id'))) {
             return false;
         }
 
-        if (! hash_equals(sha1($this->user()->getEmailForVerification()), (string) $this->route('hash'))) {
+        if (! hash_equals(sha1($user->getEmailForVerification()), (string) $this->route('hash'))) {
             return false;
         }
 
@@ -34,16 +34,5 @@ class VerificationRequest extends FormRequest
     public function rules(): array
     {
         return [];
-    }
-
-    public function fulfill() {
-        if (! $this->user()->hasVerifiedEmail()) {
-            $this->user()->markEmailAsVerified();
-            $this->user()->update([
-                'isVerified' => true
-            ]);
-
-            event(new Verified($this->user()));
-        }
     }
 }

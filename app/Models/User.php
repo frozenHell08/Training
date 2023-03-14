@@ -19,15 +19,18 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'username',
+        'firstName',
+        'lastName',
+        'mobile',
         'email',
         'password',
+        'filesToken',
         'isVerified',
     ];
 
     protected $guarded = [
         'user_type',
+        'balance',
     ];
 
     /**
@@ -38,6 +41,7 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
     protected $hidden = [
         'password',
         'remember_token',
+        'filesToken'
     ];
 
     /**

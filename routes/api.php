@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\Auth\{
     AuthController,
     VerifyController
 } ;
+use App\Http\Controllers\VerificationController;
 use App\Http\Requests\VerificationRequest;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -24,7 +25,7 @@ Route::group([
     'prefix' => 'auth',
 ], function () {
     Route::post('register', [RegisterController::class, 'register']);
-    Route::post('login', [LoginController::class, 'login']);
+    Route::post('login', [LoginController::class, 'login']);    
 });
 
 Route::group([
@@ -36,9 +37,5 @@ Route::group([
     Route::post('logout', 'App\Http\Controllers\Api\Auth\AuthController@logout');
 });
 
-Route::get('/verify/{id}/{hash}', function(VerificationRequest $request) {
-    $request->fulfill();
-
-    return redirect('profile');
-})  ->middleware(['auth', 'signed'])
+Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
     ->name('verification.verify');
