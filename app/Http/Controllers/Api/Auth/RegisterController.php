@@ -31,7 +31,7 @@ class RegisterController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'errors' => $validator->errors(),
-            ]);
+            ], 422);
         }
 
         $user = User::create([
@@ -48,7 +48,7 @@ class RegisterController extends Controller
             $user->save();
         }
 
-        event(new Registered($user));
+        // event(new Registered($user));
 
         // Mail::to($user->email)->send(new VerifyRegister($user));
 

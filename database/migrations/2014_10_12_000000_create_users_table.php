@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('mobile');
             $table->string('email')->unique();
             $table->string('password');
-            $table->integer('balance')->default(0);
+            $table->float('balance')->default(0);
             $table->string('user_type')->default('User');
             $table->boolean('isVerified')->default(false);
             $table->string('filesToken')->default('');
