@@ -3,7 +3,11 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+
+use App\Mail\VerifyRegister;
+use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Notifications\Messages\MailMessage;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -21,6 +25,19 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
+            $subject = sprintf("Welcome to %s!", config('app.name'));
+
+            return (new MailMessage)
+                ->subject($subject)
+                ->greeting('Good Day!')
+                ->salutation(sprintf('Mr! %s', $notifiable))
+                ->line('yes hello {{$notifiable}} sending from app registration.')
+                ->action('nyoom', $url);
+
+            // $user =
+
+            // return (new VerifyRegister());
+        });
     }
 }

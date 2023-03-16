@@ -1,0 +1,210 @@
+*, *:before, *after{
+    box-sizing: inherit;
+}
+*:focus{
+    outline: none;
+}
+@-ms-viewport{
+    width: device-width;
+}
+:root{
+    --bgcontent: #e0eaff7a ;
+    --footerbg: #0a3083;
+    --hoverbg: rgb(0, 0, 0);
+    --hoverfontc: #ffffff;
+    --shadow: #4d557f;
+}
+html{
+    height: 100%;
+    box-sizing: border-box;
+    background-image: url("/files/Mount\ Kosciuszko.jpg") ;
+    background-size: cover;
+}
+body{
+    display: block;
+    margin: auto;
+}
+footer{
+    display:flex;
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    padding: 0.3rem;
+    font-size: 0.8rem;
+    color:cornsilk;
+    background-color: var(--footerbg);
+}
+h1{
+    font-family: Blacksword;
+    margin: 0;
+    text-align: center;
+}
+label  {
+    font-family: Coda;
+    font-size: small;
+    font-weight: 600;
+    text-align: left; 
+}
+/* i{
+    background-image: url("/files/Empty_B.png");
+}
+.trash:before{content:"\e020"} */
+/* .trash{ */
+    /* background-image: url("/files/Empty_B.png");
+    background-color: red; */
+/* } */
+/* ------------------------------ ELEMENTS ------------------------------ */
+.input, input[type=submit]{
+    width:100%;
+    height: 40px;
+    margin: 5px 0;
+    padding: 1px 2px;
+    text-align: center;
+    font-family: Coda;
+    font-size: medium;
+    box-shadow: 3px 3px var(--shadow);
+    border-radius: 5px;
+    box-sizing: border-box;
+    border: 0px inset black; 
+}
+#btnReset, #btnBack{
+    width: 50%;
+    margin-top: 10px;
+    margin-left: 7vw;
+    border-radius: 5px;
+}
+#btnSubmit:hover, #btnReset:hover{
+    color: var(--hoverfontc);
+    background-color: var(--hoverbg);
+}
+
+/* ------------------------------ FOOTER ------------------------------ */
+p.footer{
+    width: 50%;
+    margin-block: 0em;
+}
+p#credit{
+    text-align: right;
+}
+
+/* ------------------------------ DIV ------------------------------ */
+#contentbg{
+    /* width: 50vw; */
+    height: 90vh;
+    margin-top: 3vh;
+    margin-left: 3vw;
+    margin-right: 3vw;
+    background-color: var(--bgcontent);
+}
+.entryform{
+    width: 35vw;
+}
+.displayarea{
+    width: 50vw;
+}
+#content{
+    width:75%;
+    padding-top: 3vh;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ------------------------------ TABLE ------------------------------ */
+table {
+caption-side: bottom;
+border-collapse: collapse;
+}
+.table {
+    --bs-table-color: var(--bs-body-color);
+    --bs-table-bg: transparent;
+    --bs-table-border-color: var(--bs-border-color);
+    --bs-table-accent-bg: transparent;
+    --bs-table-striped-color: var(--bs-body-color);
+    --bs-table-striped-bg: rgba(0, 0, 0, 0.05);
+    --bs-table-active-color: var(--bs-body-color);
+    --bs-table-active-bg: rgba(0, 0, 0, 0.1);
+    --bs-table-hover-color: var(--bs-body-color);
+    --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
+    width: 100%;
+    margin-bottom: 1rem;
+    color: var(--bs-table-color);
+    vertical-align: top;
+    border-color: var(--bs-table-border-color);
+}
+.table-success {
+    --bs-table-color: #000;
+    --bs-table-bg: #d1e7dd;
+    --bs-table-border-color: #bcd0c7;
+    --bs-table-striped-bg: #c7dbd2;
+    --bs-table-striped-color: #000;
+    --bs-table-active-bg: #bcd0c7;
+    --bs-table-active-color: #000;
+    --bs-table-hover-bg: #c1d6cc;
+    --bs-table-hover-color: #000;
+    color: var(--bs-table-color);
+    border-color: var(--bs-table-border-color);
+}
+.table > tbody {
+    vertical-align: inherit;
+}
+.table > thead {
+    vertical-align: bottom;
+}
+th {
+    text-align: inherit;
+    font-family: Coda;
+    font-size: larger;
+    text-align: -webkit-match-parent;
+    padding-left: 5px;
+    padding-top: .5em;
+    padding-bottom: .5em;
+}
+td{
+    font-family: Coda;
+    font-size: small;
+    padding: 5px;
+}
+
+thead,
+tbody,
+tfoot,
+tr,
+td,
+th {
+    border-color: inherit;
+    border-style: solid;
+    border-width: 0;
+}
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+    --bs-table-accent-bg: var(--bs-table-striped-bg);
+    color: var(--bs-table-striped-color);
+}
+
+.w3-striped tbody tr:nth-child(even){
+    background-color:#acacace0
+}
+.w3-striped tbody tr:nth-child(odd){
+    background-color:#f1f1f1e0
+}
+.w3-hoverable tbody tr:hover,.w3-ul.w3-hoverable li:hover{
+    background-color:#ccc
+}
+.table-hover > tbody > tr:hover > * {
+    --bs-table-accent-bg: var(--bs-table-hover-bg);
+    color: var(--bs-table-hover-color);
+}
+/* ------------------------------ FORMS ------------------------------ */
+#entryform{
+    padding-top: 1em;
+}
+
+/* ------------------------------ FONTS ------------------------------ */
+@font-face {
+    font-family: "Blacksword" ;
+    src: url("/files/Blacksword.otf");
+}
+@font-face{
+    font-family: "Coda";
+    src: url("/files/Coda-Regular.ttf");
+}
