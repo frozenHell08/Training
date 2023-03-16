@@ -3,15 +3,19 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\TestMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
 class LoginController extends Controller
 {
     public function login(Request $request) {
         $validator = Validator::make($request->all(), [
-            'email' => ['required', 'email'],
+            // 'mobile' => ['required', 'email'],
+            'mobile' => ['required', 'min:10', 'max:10'],
             'password' => ['required'],
         ]);
 
@@ -21,7 +25,7 @@ class LoginController extends Controller
             ], 422);
         }
 
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->only('mobile', 'password');
 
         if (! $token = Auth::attempt($credentials)) {
             return response()->json([
@@ -38,8 +42,9 @@ class LoginController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => Auth::factory()->getTTL() * 60,
-            'user' => auth()->user(),
-            'payload' => Auth::payload()
+            // 'user' => auth()->user(),
+            'payload' => Auth::payload(),
+            'user' => Auth::user(),
         ]);
     }
 }

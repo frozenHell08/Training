@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable implements MustVerifyEmail, JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -19,10 +20,18 @@ class User extends Authenticatable implements JWTSubject
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'username',
+        'firstName',
+        'lastName',
+        'mobile',
         'email',
         'password',
+        'filesToken',
+        'isVerified',
+    ];
+
+    protected $guarded = [
+        'user_type',
+        'balance',
     ];
 
     /**
@@ -50,5 +59,13 @@ class User extends Authenticatable implements JWTSubject
 
     public function getJWTCustomClaims() {
         return [];
+    }
+
+    public function transactions(): BelongsToMany {
+        return $this->belongsToMany(Transaction::class, 'transaction_id');
+    }
+
+    public function getVerifiedStatus() {
+        return $this->isVerified;
     }
 }
