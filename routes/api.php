@@ -28,6 +28,7 @@ Route::group([
     'prefix' => 'auth',
 ], function () {
     Route::post('register', [RegisterController::class, 'register']);
+    Route::post('register/validate', [RegisterController::class, 'validateEntry']);
     Route::post('login', [LoginController::class, 'login']);    
 });
 

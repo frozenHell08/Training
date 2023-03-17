@@ -17,6 +17,19 @@ use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
+    public function validateEntry(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'mobile' => ['required', 'min:10', 'max:10', 'unique:users'],
+            'email' => ['required', 'email', 'max:255', 'unique:users'],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+    }
+
     public function register(Request $request) {
 
         $validator = Validator::make($request->all(), [
