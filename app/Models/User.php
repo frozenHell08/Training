@@ -62,7 +62,7 @@ class User extends Authenticatable implements MustVerifyEmail, JWTSubject
     }
 
     public function transactions(): BelongsToMany {
-        return $this->belongsToMany(Transaction::class, 'transaction_id');
+        return $this->belongsToMany(Transaction::class, 'sender');
     }
 
     public function getVerifiedStatus() {

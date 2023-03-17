@@ -17,7 +17,6 @@ class TransactionController extends Controller
         // ------------------------------------------------------------- //
 
         $validator = Validator::make($request->all(), [
-            // 'sender' => ['required'],
             'receiver' => ['required', 'min:10', 'integer'],
             'amount' => ['required', 'numeric']
         ]);
@@ -63,36 +62,6 @@ class TransactionController extends Controller
             'amount' => $request->amount,
             'transaction_date' => now(),
         ]);
-        
-        // ------------------------------------------------------------- //
-
-        $sender_name = sprintf('%s %s', $sender->firstName, $sender->lastName);
-        $receiver_name = sprintf('%s %s', $receiver->firstName, $receiver->lastName);
-
-        // return response()->json([
-        //     'sender' => $sender_name,
-        //     'receiver' => $receiver_name
-        // ]);
-        
-        // $transaction = Transaction::create([
-        //     'reference_no' => $randomized,
-        //     'sender' => $request->user,
-        //     'receiver' => $receiver->id, //request->receiver
-        //     'amount' => $request->amount,
-        //     'transaction_date' => now(),
-        // ]);
-
-        // ------------------------------------------------------------- //
-
-
-        // $sender_bal = $sender->balance;
-        // $receiver_bal = $receiver->balance;
-
-        // $sender->balance = $sender_bal - $transaction->amount;
-        // $receiver->balance = $receiver_bal + $transaction->amount;
-
-        // $sender->save();
-        // $receiver->save();
 
         $this->save_transaction_changes($sender, $receiver, $transaction->amount);
 
