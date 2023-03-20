@@ -53,6 +53,7 @@ Route::group([
     Route::get('dashboard', [DashboardController::class, 'show_details']);
     Route::get('transfer/receiver', [ReceiverController::class, 'check_receiver']);
     Route::get('dashboard/connections', [DashboardController::class, 'show_connections']);
+    Route::put('dashboard/cashin', [DashboardController::class, 'cash_in']);
 });
 
 //Route::get("/posts/:id");

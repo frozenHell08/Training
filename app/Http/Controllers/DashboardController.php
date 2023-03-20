@@ -7,10 +7,11 @@ use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class DashboardController extends Controller
 {
-    public function show_details(TransactionRequest $request) {
+    public function show_details(Request $request) {
 
         $transactions = Transaction::where('sender', $request->user)
                                     ->orWhere('receiver', $request->user)
@@ -52,6 +53,36 @@ class DashboardController extends Controller
 
         return response()->json([
             'connections' => $col
+        ], 200);
+    }
+
+    public function cash_in (Request $request) {
+        $user = User::find($request->user);
+
+        $validator = Validator::make($request->all(), [
+            'amount' => ['required', 'numeric']
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        if ($request->amount < 0) {
+            return response()->json([
+                'error' => 'Amount cannot be less that 0.'
+            ], 422);
+        }
+
+        $new_balance = $user->balance + $request->amount;
+
+        $user->balance = $new_balance;
+        $user->save();
+
+        return response()->json([
+            'message' => "Successful cash-in of {$request->amount} pesos.",
+            'user' => $user
         ], 200);
     }
 }
